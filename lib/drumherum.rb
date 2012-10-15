@@ -1,12 +1,9 @@
 # ruby encoding: utf-8
 # ü
 
-
 require 'hoe'
 require 'rbconfig'
 require 'drumherum/smart_init' unless defined? SmartInit
-
-
 
 
 unless defined? WINDOWS  
@@ -20,22 +17,6 @@ end
 
 
 
-
-
-
-
-
-if $0 == __FILE__ 
-
-
-  puts Drumherum.project_version
-  
-  smart_init(__FILE__)
-  $LOAD_PATH.each do |path|
-  puts path
-  end  
-
-end
   
 
 

@@ -1,17 +1,12 @@
 # ruby encoding: utf-8
 
-#== *Rake* 
-#Beispiele siehe Rakefile.rb
-#* Methode remove_task, um Tasks überschreiben zu können
-
+#== Rake
 
 #  ----------------------------------------------------------------------------------------------
 #  Rake initialisieren
 #  
 
 require 'rake'
-#require 'rake/testtask'
-
 
   
 
@@ -248,10 +243,19 @@ desc 'VERSION of the current project'
 task :version do
 
   puts "\n#{Drumherum.project_name} (#{Drumherum.project_version})\n\n"
-     
+          
+end
+
+
+# Task :load_path
+#
+desc '$LOAD_PATH'
+task :load_path do
+    
   $LOAD_PATH.each do |path|
-  puts path
+    puts path
   end       
+  
 end
 
 

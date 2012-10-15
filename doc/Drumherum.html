@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf8" http-equiv="Content-Type">
 
-<title>module Drumherum - Drumherum 0.1.5</title>
+<title>module Drumherum - Drumherum 0.1.6</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -75,8 +75,6 @@
     <li><a href="#method-c-project_class">::project_class</a>
     
     <li><a href="#method-c-project_name">::project_name</a>
-    
-    <li><a href="#method-c-project_name-3D">::project_name=</a>
     
     <li><a href="#method-c-project_version">::project_version</a>
     
@@ -161,12 +159,13 @@
 
         <div class="method-description">
           
-          <p>The main directory (as array)</p>
+          <p>The main directory (as array). main_dir = File.join(patharray) lib_dir =
+File.join(patharray, ‘lib’) test_dir = File.join(patharray, ‘test’)</p>
           
 
           
           <div class="method-source-code" id="directory_main-source">
-            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">directory_main</span>
   <span class="ruby-ivar">@directory_main</span> <span class="ruby-operator">||</span> []
 <span class="ruby-keyword">end</span></pre>
@@ -196,7 +195,7 @@
 
           
           <div class="method-source-code" id="directory_main-3D-source">
-            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 46</span>
+            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">directory_main=</span>(<span class="ruby-identifier">mn</span>)
   <span class="ruby-ivar">@directory_main</span> = <span class="ruby-identifier">mn</span>
 <span class="ruby-keyword">end</span></pre>
@@ -226,7 +225,7 @@
 
           
           <div class="method-source-code" id="github_username-source">
-            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">github_username</span>
   <span class="ruby-ivar">@github_username</span> <span class="ruby-operator">||</span> <span class="ruby-string">'gleer'</span>
 <span class="ruby-keyword">end</span></pre>
@@ -256,7 +255,7 @@
 
           
           <div class="method-source-code" id="github_username-3D-source">
-            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 36</span>
+            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">github_username=</span>(<span class="ruby-identifier">gn</span>)
   <span class="ruby-ivar">@github_username</span> = <span class="ruby-identifier">gn</span>
 <span class="ruby-keyword">end</span></pre>
@@ -286,7 +285,7 @@
 
           
           <div class="method-source-code" id="project_class-source">
-            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">project_class</span>
   <span class="ruby-identifier">classname</span> = <span class="ruby-identifier">project_name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\/(.?)/</span>) { <span class="ruby-node">&quot;::#{$1.upcase}&quot;</span> }.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r(?:^|_)(.)/</span>) { <span class="ruby-node">$1</span>.<span class="ruby-identifier">upcase</span> }
   <span class="ruby-keyword">unless</span> <span class="ruby-regexp">%r\A(?:::)?([A-Z]\w*(?:::[A-Z]\w*)*)\z/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">classname</span>
@@ -320,9 +319,13 @@
 
           
           <div class="method-source-code" id="project_name-source">
-            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">project_name</span>
-  <span class="ruby-ivar">@project_name</span> <span class="ruby-operator">||</span> <span class="ruby-string">'Drumherum'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@directory_main</span>
+    <span class="ruby-ivar">@directory_main</span>[<span class="ruby-value">-1</span>].<span class="ruby-identifier">strip</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;start smart_init first&quot;</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- project_name-source -->
           
@@ -332,36 +335,6 @@
 
         
       </div><!-- project_name-method -->
-
-    
-      <div id="method-c-project_name-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">project_name=</span><span
-            class="method-args">(pn)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="project_name-3D-source">
-            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 8</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">project_name=</span>(<span class="ruby-identifier">pn</span>)
-  <span class="ruby-ivar">@project_name</span> = <span class="ruby-identifier">pn</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- project_name-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- project_name-3D-method -->
 
     
       <div id="method-c-project_version" class="method-detail ">
@@ -380,7 +353,7 @@
 
           
           <div class="method-source-code" id="project_version-source">
-            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 29</span>
+            <pre><span class="ruby-comment"># File lib/drumherum/smart_init.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">project_version</span>
   <span class="ruby-identifier">project_class</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">'VERSION'</span>)
 <span class="ruby-keyword">end</span></pre>

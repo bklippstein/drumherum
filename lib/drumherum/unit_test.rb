@@ -2,7 +2,6 @@
 require 'test/unit'
 
 
-
 class UnitTest < Test::Unit::TestCase # :nodoc:
 
   # Meldet den aktuell durchlaufenden Test
@@ -18,10 +17,6 @@ class UnitTest < Test::Unit::TestCase # :nodoc:
     end
   end  
   
-  
-
-  
-
 
 end
 

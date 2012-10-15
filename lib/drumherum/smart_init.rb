@@ -5,15 +5,14 @@ module Drumherum
    
   
   class << self
-    
-    def project_name=(pn)
-      @project_name = pn
-    end
-  
-  
+     
     # Name of the actual project
     def project_name
-      @project_name || 'Drumherum'
+      if @directory_main
+        @directory_main[-1].strip
+      else
+        raise "start smart_init first"
+      end
     end
 
     
@@ -48,7 +47,11 @@ module Drumherum
       @directory_main = mn
     end    
     
-    # The main directory (as array)     
+    # The main directory (as array).
+    # main_dir = File.join(patharray)
+    # lib_dir = File.join(patharray, 'lib')
+    # test_dir = File.join(patharray, 'test')
+    #
     def directory_main
       @directory_main || []
     end      

@@ -3,9 +3,6 @@
 
 class String
 
-  # ---------------------------------------------------------------------------------------------------------------------------------
-  # :section: Operation
-  #  
 
   # Zeigt das Ergebnis eines Matches mit einer Regular Expression. Erleichtert das Entwickeln regulärer Ausdrücke.
   # 

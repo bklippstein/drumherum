@@ -3,15 +3,10 @@
 require 'drumherum'
 smart_init
 require 'version' 
-
-
-Drumherum.project_name = File.dirname(__FILE__).split("/")[-1].strip   # Name des Projekt-Stammverzeichnisses
-Drumherum.github_username = 'bklippstein'
-
 require 'rdoc/task'
 require 'drumherum/rake'
 
-
+Drumherum.github_username = 'bklippstein'
 
 
 
