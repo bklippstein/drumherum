@@ -48,9 +48,9 @@ module Drumherum
     end    
     
     # The main directory (as array).
-    # main_dir = File.join(patharray)
-    # lib_dir = File.join(patharray, 'lib')
-    # test_dir = File.join(patharray, 'test')
+    # main_dir = File.join(Drumherum::directory_main)
+    # lib_dir = File.join(Drumherum::directory_main, 'lib')
+    # test_dir = File.join(Drumherum::directory_main, 'test')
     #
     def directory_main
       @directory_main || []
