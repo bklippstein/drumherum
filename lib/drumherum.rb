@@ -1,17 +1,33 @@
 # ruby encoding: utf-8
 # ü
+
 if $:.include?(File.dirname(__FILE__))  ||  $:.include?(File.expand_path(File.dirname(__FILE__)))
   #puts 'Path schon aktuell'
 else
   $:.unshift(File.dirname(__FILE__)) 
 end
 
+
 require 'hoe'
+require 'rbconfig'
+require 'drumherum/kernel' unless defined? DrumherumKernel
 
-module Drumherum 
+unless defined? WINDOWS  
+  WINDOWS = /djgpp|(cyg|ms|bcc)win|mingw/ =~ RUBY_PLATFORM ? RUBY_PLATFORM : false       
+end
 
-  VERSION = '0.1.0' # Drumherum
+unless defined? RUBYDIR
+  RUBYDIR = RbConfig::CONFIG['prefix']
+  # puts "rubydir=" + RUBYDIR
+end
+
+
+
+
+module Drumherum  
   
+  
+VERSION = '0.1.2' # Drumherum  
   
   
   class << self
@@ -70,8 +86,12 @@ end
 if $0 == __FILE__ 
 
 
-  #Drumherum.project_name='kyanite'
   puts Drumherum.project_version
+  
+  smart_load_path(__FILE__)
+  $LOAD_PATH.each do |path|
+  puts path
+  end  
 
 end
   

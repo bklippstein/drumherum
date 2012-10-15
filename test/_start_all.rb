@@ -5,7 +5,7 @@
 #
 
   if $0 == __FILE__ 
-    require 'kyanite/smart_load_path.rb' 
+    require 'drumherum' 
     smart_load_path   
   end
 

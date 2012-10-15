@@ -1,12 +1,18 @@
 # ruby encoding: utf-8
+if $:.include?(File.dirname(__FILE__))  ||  $:.include?(File.expand_path(File.dirname(__FILE__)))
+  #puts 'Path schon aktuell'
+else
+  $:.unshift(File.dirname(__FILE__)) 
+end
 
 require 'kyanite/smart_load_path'
 smart_load_path  
-
-
 require 'drumherum'
+
+
 Drumherum.project_name = File.dirname(__FILE__).split("/")[-1].strip   # Name des Projekt-Stammverzeichnisses
 Drumherum.github_username = 'bklippstein'
+
 require 'rdoc/task'
 require 'drumherum/rake'
 

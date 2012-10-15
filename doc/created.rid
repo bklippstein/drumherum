@@ -1,9 +1,10 @@
-Mon, 15 Oct 2012 16:37:38 +0200
+Mon, 15 Oct 2012 17:53:24 +0200
 lib/drumherum/call_tracker.rb	Mon, 08 Oct 2012 09:41:29 +0200
+lib/drumherum/kernel.rb	Mon, 15 Oct 2012 17:20:39 +0200
 lib/drumherum/rake.rb	Mon, 15 Oct 2012 16:23:30 +0200
 lib/drumherum/regexp.rb	Mon, 15 Oct 2012 13:27:47 +0200
 lib/drumherum/unit_test.rb	Mon, 08 Oct 2012 09:42:31 +0200
-lib/drumherum.rb	Mon, 15 Oct 2012 16:24:32 +0200
+lib/drumherum.rb	Mon, 15 Oct 2012 17:53:01 +0200
 README.txt	Mon, 15 Oct 2012 15:26:48 +0200
 License.txt	Mon, 15 Oct 2012 15:38:33 +0200
-History.txt	Mon, 15 Oct 2012 15:22:46 +0200
+History.txt	Mon, 15 Oct 2012 17:32:25 +0200
