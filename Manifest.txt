@@ -7,9 +7,9 @@ Rakefile.rb
 README.txt
 lib/drumherum.rb
 lib/drumherum/call_tracker.rb
-lib/drumherum/kernel.rb
 lib/drumherum/rake.rb
 lib/drumherum/regexp.rb
+lib/drumherum/smart_init.rb
 lib/drumherum/unit_test.rb
 test/_start_all.rb
 

@@ -6,7 +6,7 @@
 
   if $0 == __FILE__ 
     require 'drumherum' 
-    smart_load_path   
+    smart_init   
   end
 
      

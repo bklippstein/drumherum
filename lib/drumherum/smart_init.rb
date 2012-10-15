@@ -2,22 +2,22 @@
 # ü
 
 
-module DrumherumKernel 
+module SmartInit 
   
   # Vereinfacht die require-Statements in den Tests bei der Entwicklung von Libraries.  
   # Beim lokalen Aufruf eines einzelnen Tests wird die lokale Version der Library verwendet, nicht die installierte gem.
   # Verwendung:
   #   if $0 == __FILE__ 
   #     require 'drumherum'
-  #     smart_load_path   
+  #     smart_init   
   #   end
   #   require 'mygemproject'  
   #
-  def smart_load_path(__file__ = nil)
+  def smart_init(__file__ = nil)
     __file__ = caller[0] unless __file__
     dir_caller =File.dirname(__file__)
     
-    #puts "smart_load_path " + dir_caller    
+    #puts "smart_init " + dir_caller    
     
     patharray = dir_caller.split('/')
     patharray = dir_caller.split("\\")       if patharray.size == 1  
@@ -40,7 +40,7 @@ module DrumherumKernel
 end # module
 
 class Object
-  include DrumherumKernel
+  include SmartInit
 end
 
 
@@ -51,7 +51,7 @@ if $0 == __FILE__
 
 # pp RUBYDIR
 
-smart_load_path
+smart_init
 $LOAD_PATH.each do |path|
 puts path
 end

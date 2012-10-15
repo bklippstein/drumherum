@@ -1,6 +1,6 @@
 
 == 0.1.2 2012-10-15
-* smart_load_path integrated
+* smart_init integrated
 
 == 0.1.0 2012-10-15
 * Initial public release

@@ -10,7 +10,7 @@ end
 
 require 'hoe'
 require 'rbconfig'
-require 'drumherum/kernel' unless defined? DrumherumKernel
+require 'drumherum/smart_init' unless defined? DrumherumKernel
 
 unless defined? WINDOWS  
   WINDOWS = /djgpp|(cyg|ms|bcc)win|mingw/ =~ RUBY_PLATFORM ? RUBY_PLATFORM : false       
@@ -27,7 +27,7 @@ end
 module Drumherum  
   
   
-VERSION = '0.1.2' # Drumherum  
+VERSION = '0.1.3' # Drumherum  
   
   
   class << self
@@ -88,7 +88,7 @@ if $0 == __FILE__
 
   puts Drumherum.project_version
   
-  smart_load_path(__FILE__)
+  smart_init(__FILE__)
   $LOAD_PATH.each do |path|
   puts path
   end  
