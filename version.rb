@@ -1,9 +1,10 @@
 
 module Drumherum  
   
-  #unless defined? VERSION
-    VERSION = '0.1.4' # Drumherum-Version  
-    puts "VERSION=#{VERSION}"
-  #end
+    VERSION = '0.1.5' # Drumherum-Version  
+    
+    
+    # puts "VERSION=#{VERSION}"
+
   
 end

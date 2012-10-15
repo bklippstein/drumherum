@@ -247,8 +247,11 @@ end
 desc 'VERSION of the current project'
 task :version do
 
-    puts "\n#{Drumherum.project_name} (#{Drumherum.project_version})\n\n"
-
+  puts "\n#{Drumherum.project_name} (#{Drumherum.project_version})\n\n"
+     
+  $LOAD_PATH.each do |path|
+  puts path
+  end       
 end
 
 

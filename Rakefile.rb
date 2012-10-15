@@ -1,15 +1,5 @@
 # ruby encoding: utf-8
 
-if $:.include?(File.dirname(__FILE__))  ||  $:.include?(File.expand_path(File.dirname(__FILE__)))
-  #puts 'Path schon aktuell'
-else
-  $:.unshift(File.dirname(__FILE__)) 
-end
-
-puts "Hallo"
-
-require 'kyanite/smart_load_path'
-
 require 'drumherum'
 smart_init
 require 'version' 
