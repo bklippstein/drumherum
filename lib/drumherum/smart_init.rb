@@ -55,6 +55,16 @@ module Drumherum
     def directory_main
       @directory_main || []
     end      
+    
+    
+    def loaded!
+      @loaded = true
+    end
+    
+    def loaded?
+      @loaded 
+    end    
+    
         
   end # moduldefinitionen   
   

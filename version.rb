@@ -1,7 +1,7 @@
 
 module Drumherum  
   
-    VERSION = '0.1.9' # Drumherum-Version  
+    VERSION = '0.1.10' # Drumherum-Version  
     
     
     # puts "VERSION=#{VERSION}"
