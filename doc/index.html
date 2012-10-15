@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf8" http-equiv="Content-Type">
 
-<title>Drumherum 0.1.7</title>
+<title>Drumherum 0.1.9</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -88,10 +88,33 @@
 <p><a
 href="http://bklippstein.github.com/drumherum/">bklippstein.github.com/drumherum/</a></p>
 
-<h2 id="label-Usage">Usage</h2>
+<h2 id="label-%24LOAD_PATH+management">$LOAD_PATH management</h2>
 
-<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">'drumherum'</span>
+<p><code>smart_init</code> finds the directory named 'lib' in your project and
+adds</p>
+<ul><li>
+<p>the (main) directory above</p>
+</li><li>
+<p>the lib-directory itself</p>
+</li></ul>
+
+<p>to Rubys $LOAD_PATH.</p>
+
+<p>Usage (wherever you are in the directory hierarchy of your project):</p>
+
+<pre class="ruby"><span class="ruby-keyword">if</span> <span class="ruby-identifier">$0</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">__FILE__</span> 
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'drumherum'</span>
+  <span class="ruby-identifier">smart_init</span> 
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">require</span> <span class="ruby-string">'my-gem-project'</span>
 </pre>
+
+<h2 id="label-Rake+tasks+for+deployment">Rake tasks for deployment</h2>
+
+<pre>rake publish               # publish all on github and rubygems, reinstall gem
+rake git_publish           # publish actual version to github  
+rake git_publish_docs      # publish docs to github
+rake rubygems_publish      # release actual version to rubygems</pre>
 
 <h2 id="label-License"><a href="License_txt.html">License</a></h2>
 

@@ -3,12 +3,31 @@
 
 http://bklippstein.github.com/drumherum/
 
+== $LOAD_PATH management
++smart_init+ finds the directory named 'lib' in your project and adds
+* the (main) directory above
+* the lib-directory itself 
+to Rubys $LOAD_PATH.
+
+Usage (wherever you are in the directory hierarchy of your project):
+  if $0 == __FILE__ 
+    require 'drumherum'
+    smart_init 
+  end
+  require 'my-gem-project'  
+
+== Rake tasks for deployment
+  rake publish               # publish all on github and rubygems, reinstall gem
+  rake git_publish           # publish actual version to github  
+  rake git_publish_docs      # publish docs to github
+  rake rubygems_publish      # release actual version to rubygems
 
 
 
 
-== Usage
-  require 'drumherum'             
+
+
+          
 
 
 == License

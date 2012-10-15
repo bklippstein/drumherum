@@ -20,7 +20,7 @@ $hoe = Hoe.spec Drumherum.project_name do
   # self.rubyforge_name = 'yourgemx' # if different than 'yourgem'
    
   developer('Bjoern Klippstein', 'klippstein@klippstein.com')
-  summary               = 'Tools for developing, testing & deploying'  
+  summary               = '$LOAD_PATH management, Rake tasks for deployment'  
 
   remote_rdoc_dir = '' # Release to root only one project  
   urls                  = [["http://#{Drumherum.github_username}.github.com/#{Drumherum.project_name}/"]]
