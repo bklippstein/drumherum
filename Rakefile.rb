@@ -9,8 +9,10 @@ end
 puts "Hallo"
 
 require 'kyanite/smart_load_path'
-smart_load_path  
+
 require 'drumherum'
+smart_init
+require 'version' 
 
 
 Drumherum.project_name = File.dirname(__FILE__).split("/")[-1].strip   # Name des Projekt-Stammverzeichnisses

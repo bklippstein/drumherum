@@ -25,10 +25,7 @@ end
 
 
 module Drumherum  
-  
-  
-VERSION = '0.1.3' # Drumherum  
-  
+   
   
   class << self
     
