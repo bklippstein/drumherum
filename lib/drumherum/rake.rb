@@ -37,11 +37,40 @@ end
   # Task :publish
   #
   desc 'publish all on github and rubygems, reinstall gem'
-  task :publish => [ :utf8, :yard, :rubygems_publish, :gem_uninstall, :git_publish, :git_publish_docs, :sleep_15, :utf8, :gem_install] do
+  task :publish => [ :utf8, :doku, :rubygems_publish, :gem_uninstall, :git_publish, :git_publish_docs, :sleep_15, :utf8, :gem_install] do
     puts 'done.'
   end  
 
 
+  
+# -------------------------------------------------------------------------------------------------------
+# docs
+#
+
+  # Task :docs
+  #
+  desc 'regenerate yard documentation'
+  task :doku => [ :clobber_docs, :yard, :yard_post] do
+    puts 'done.'
+  end    
+  
+  
+  # Task :yard_post
+  #
+  desc 'postprocessing fpr yard docs'
+  task :yard_post do
+    Dir.chdir "./doc" do 
+      if Hoe::WINDOZE
+        sh 'copy frames.html index.htm'
+      else
+        sh 'sudo cp frames.html index.htm'
+      end      
+    end 
+  end     
+  
+    
+  
+  
 
 # -------------------------------------------------------------------------------------------------------
 # git

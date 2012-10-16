@@ -1,5 +1,5 @@
 lib/drumherum.rb 7125d5b5479216020d9788ba75142785d5e8ef1c
-lib/drumherum/rake.rb 178e9ff3771546a07bd3e1b64eb9408a9fcaeed4
+lib/drumherum/rake.rb 10b5eb8110db565cc2eb47c318cf9cf57e8f5de7
 lib/drumherum/regexp.rb 68ff449b1848267e7fb08e46358ad4dc5f3f9262
 lib/drumherum/unit_test.rb 2c34a0261d11f6f7a230539aa4384ab644585c0a
 lib/drumherum/smart_init.rb 81cc61e02c4eb07e2d6d032f20f5d17008362f7e

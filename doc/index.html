@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.8.2.1
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><br/>= Drumherum<br/><br/>http://bklippstein.github.com/drumherum/<br/><br/>== $LOAD_PATH management<br/>+smart_init+ finds the directory named 'lib' in your project and adds<br/>* the (main) directory above<br/>* the lib-directory itself <br/>to Rubys $LOAD_PATH. So your require statements load the actual version from your project directory, not the gem version.<br/><br/>Usage (wherever you are in the directory hierarchy of your project):<br/>  if $0 == __FILE__ <br/>    require 'drumherum'<br/>    smart_init <br/>  end<br/>  require 'my-gem-project'  <br/><br/>== Rake tasks for deployment<br/>  rake publish               # publish all on github and rubygems, reinstall gem<br/>  rake git_publish           # publish actual version to github  <br/>  rake git_publish_docs      # publish docs to github<br/>  rake rubygems_publish      # release actual version to rubygems<br/><br/>== Unit Tests<br/>You will see a status display for your tests if you use UnitTest instead of Test::Unit::TestCase: <br/><br/><br/><br/><br/>          <br/><br/><br/>== License<br/>cc-by-sa<br/><br/>Creative Commons Attribution-Share Alike 3.0 Germany<br/><br/>http://creativecommons.org/licenses/by-sa/3.0/de/deed.en<br/><br/><br/>== Homepage<br/>http://bklippstein.github.com/drumherum/<br/><br/><br/>== Author<br/>Björn Klippstein <br/><br/><br/>== Disclaimer<br/>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,<br/>EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF<br/>MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<br/>NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE<br/>LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION<br/>OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION<br/>WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</div></div>
+
+    <div id="footer">
+  Generated on Tue Oct 16 12:05:50 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.2.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
