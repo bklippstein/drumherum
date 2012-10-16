@@ -4,8 +4,8 @@
 # http://oreilly.com/catalog/9780596523695/
 # Ruby Cookbook, by Lucas Carlson and Leonard Richardson
 # Copyright 2006 O'Reilly Media
-#
-class CallTracker
+# @private
+class CallTracker 
 
   # Initialize and start the trace.
   def initialize(show_stack_depth=1)

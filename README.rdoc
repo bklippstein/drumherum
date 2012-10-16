@@ -1,20 +1,19 @@
 
 = Drumherum
-
-http://bklippstein.github.com/drumherum/
+http://bklippstein.github.com/drumherum/frames.html
 
 == $LOAD_PATH management
 +smart_init+ finds the directory named 'lib' in your project and adds
 * the (main) directory above
 * the lib-directory itself 
-to Rubys $LOAD_PATH. So your require statements load the actual version from your project directory, not the gem version.
+to Rubys $LOAD_PATH. So your require statements load the actual version from your (local) project directory, not the (public) gem version.
 
 Usage (wherever you are in the directory hierarchy of your project):
   if $0 == __FILE__ 
     require 'drumherum'
     smart_init 
   end
-  require 'my-gem-project'  
+  require 'my-gem-project'   # actual local version, not the gem version
 
 == Rake tasks for deployment
   rake publish               # publish all on github and rubygems, reinstall gem
@@ -27,24 +26,13 @@ You will see a status display for your tests if you use UnitTest instead of Test
 
 
 
+== More Info
+* *Documentation*: {http://bklippstein.github.com/drumherum/frames.html github.com/drumherum}
+* *Source* *code*: {https://github.com/bklippstein/drumherum github.com/bklippstein/drumherum}
+* *License*: {http://creativecommons.org/licenses/by-sa/3.0/de/deed.en cc-by-sa Creative Commons Attribution-Share Alike 3.0 Germany}
+* *Autor*: {mailto:klippstein@klippstein.com Björn Klippstein}
 
           
-
-
-== License
-cc-by-sa
-
-Creative Commons Attribution-Share Alike 3.0 Germany
-
-http://creativecommons.org/licenses/by-sa/3.0/de/deed.en
-
-
-== Homepage
-http://bklippstein.github.com/drumherum/
-
-
-== Author
-Björn Klippstein 
 
 
 == Disclaimer

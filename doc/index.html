@@ -61,10 +61,69 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><div id='filecontents'><br/>= Drumherum<br/><br/>http://bklippstein.github.com/drumherum/<br/><br/>== $LOAD_PATH management<br/>+smart_init+ finds the directory named 'lib' in your project and adds<br/>* the (main) directory above<br/>* the lib-directory itself <br/>to Rubys $LOAD_PATH. So your require statements load the actual version from your project directory, not the gem version.<br/><br/>Usage (wherever you are in the directory hierarchy of your project):<br/>  if $0 == __FILE__ <br/>    require 'drumherum'<br/>    smart_init <br/>  end<br/>  require 'my-gem-project'  <br/><br/>== Rake tasks for deployment<br/>  rake publish               # publish all on github and rubygems, reinstall gem<br/>  rake git_publish           # publish actual version to github  <br/>  rake git_publish_docs      # publish docs to github<br/>  rake rubygems_publish      # release actual version to rubygems<br/><br/>== Unit Tests<br/>You will see a status display for your tests if you use UnitTest instead of Test::Unit::TestCase: <br/><br/><br/><br/><br/>          <br/><br/><br/>== License<br/>cc-by-sa<br/><br/>Creative Commons Attribution-Share Alike 3.0 Germany<br/><br/>http://creativecommons.org/licenses/by-sa/3.0/de/deed.en<br/><br/><br/>== Homepage<br/>http://bklippstein.github.com/drumherum/<br/><br/><br/>== Author<br/>Björn Klippstein <br/><br/><br/>== Disclaimer<br/>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,<br/>EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF<br/>MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<br/>NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE<br/>LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION<br/>OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION<br/>WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</div></div>
+    <div id="content"><div id='filecontents'>
+<h1>Drumherum</h1>
+
+<p><a
+href="http://bklippstein.github.com/drumherum/frames.html">bklippstein.github.com/drumherum/frames.html</a></p>
+
+<h2>$LOAD_PATH management</h2>
+
+<p><tt>smart_init</tt> finds the directory named 'lib' in your project and
+adds</p>
+<ul><li>
+<p>the (main) directory above</p>
+</li><li>
+<p>the lib-directory itself</p>
+</li></ul>
+
+<p>to Rubys $LOAD_PATH. So your require statements load the actual version
+from your (local) project directory, not the (public) gem version.</p>
+
+<p>Usage (wherever you are in the directory hierarchy of your project):</p>
+
+<pre class="code ruby"><code><span class='kw'>if</span> <span class='gvar'>$0</span> <span class='op'>==</span> <span class='kw'>__FILE__</span> 
+  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>drumherum</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_smart_init'>smart_init</span> 
+<span class='kw'>end</span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>my-gem-project</span><span class='tstring_end'>'</span></span>   <span class='comment'># actual local version, not the gem version</span></code></pre>
+
+<h2>Rake tasks for deployment</h2>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_publish'>publish</span>               <span class='comment'># publish all on github and rubygems, reinstall gem
+</span><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_git_publish'>git_publish</span>           <span class='comment'># publish actual version to github  
+</span><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_git_publish_docs'>git_publish_docs</span>      <span class='comment'># publish docs to github
+</span><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_rubygems_publish'>rubygems_publish</span>      <span class='comment'># release actual version to rubygems</span></code></pre>
+
+<h2>Unit Tests</h2>
+
+<p>You will see a status display for your tests if you use UnitTest instead of
+Test::Unit::TestCase:</p>
+
+<h2>More Info</h2>
+<ul><li>
+<p><b>Documentation</b>: <a href="http://bklippstein.github.com/drumherum/frames.html" target="_parent" title="github.com/drumherum">github.com/drumherum</a></p>
+</li><li>
+<p><b>Source</b> <b>code</b>: <a href="https://github.com/bklippstein/drumherum" target="_parent" title="github.com/bklippstein/drumherum">github.com/bklippstein/drumherum</a></p>
+</li><li>
+<p><b>License</b>: <a href="http://creativecommons.org/licenses/by-sa/3.0/de/deed.en" target="_parent" title="cc-by-sa Creative Commons Attribution-Share Alike 3.0 Germany">cc-by-sa Creative Commons Attribution-Share Alike 3.0 Germany</a></p>
+</li><li>
+<p><b>Autor</b>: <a href="mailto:klippstein@klippstein.com" target="_parent" title="Björn Klippstein">Björn Klippstein</a></p>
+</li></ul>
+
+<h2>Disclaimer</h2>
+
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.</p>
+</div></div>
 
     <div id="footer">
-  Generated on Tue Oct 16 13:08:46 2012 by
+  Generated on Tue Oct 16 16:33:42 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.3).
 </div>
