@@ -65,6 +65,13 @@ module Drumherum
       @loaded 
     end    
     
+    def url_source
+      "https://github.com/#{Drumherum.github_username}/#{Drumherum.project_name}"
+    end   
+
+    def url_docs
+      "http://#{Drumherum.github_username}.github.com/#{Drumherum.project_name}/"
+    end     
         
   end # moduldefinitionen   
   

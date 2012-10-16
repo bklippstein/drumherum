@@ -7,7 +7,7 @@ http://bklippstein.github.com/drumherum/
 +smart_init+ finds the directory named 'lib' in your project and adds
 * the (main) directory above
 * the lib-directory itself 
-to Rubys $LOAD_PATH.
+to Rubys $LOAD_PATH. So your require statements load the actual version from your project directory, not the gem version.
 
 Usage (wherever you are in the directory hierarchy of your project):
   if $0 == __FILE__ 
@@ -22,7 +22,8 @@ Usage (wherever you are in the directory hierarchy of your project):
   rake git_publish_docs      # publish docs to github
   rake rubygems_publish      # release actual version to rubygems
 
-
+== Unit Tests
+You will see a status display for your tests if you use UnitTest instead of Test::Unit::TestCase: 
 
 
 

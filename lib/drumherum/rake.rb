@@ -37,7 +37,7 @@ end
   # Task :publish
   #
   desc 'publish all on github and rubygems, reinstall gem'
-  task :publish => [ :utf8, :redocs, :rubygems_publish, :gem_uninstall, :git_publish, :git_publish_docs, :sleep_15, :utf8, :gem_install] do
+  task :publish => [ :utf8, :yard, :rubygems_publish, :gem_uninstall, :git_publish, :git_publish_docs, :sleep_15, :utf8, :gem_install] do
     puts 'done.'
   end  
 
@@ -54,9 +54,9 @@ end
   task :git_publish => [ :git_add, :git_commit, :git_push ] do
     puts; puts; puts; puts   
     if Hoe::WINDOZE
-      sh "start https://github.com/#{Drumherum.github_username}/#{Drumherum.project_name} "
+      sh "start #{Drumherum.url_source}"
     else
-      puts "done. Visit https://github.com/#{Drumherum.github_username}/#{Drumherum.project_name} "
+      puts "done. Visit #{Drumherum.url_source} "
     end
   end  
   
@@ -125,7 +125,7 @@ end
   
     # Repository erstellen, wenn nötig
     Dir.chdir '/tmp' do
-      sh "#{'sudo ' unless Hoe::WINDOZE }git clone https://github.com/#{Drumherum.github_username}/#{Drumherum.project_name} " do |ok,res|
+      sh "#{'sudo ' unless Hoe::WINDOZE }git clone #{Drumherum.url_source} " do |ok,res|
         if ok
           Dir.chdir "/tmp/#{Drumherum.project_name}" do
             if Hoe::WINDOZE
@@ -166,13 +166,13 @@ end
         sh 'git add -A '    
         sh 'git commit -m "---" --allow-empty'
         sh 'git push origin +gh-pages '  # C:\Users\Klippstein\_netrc enthält die Login-Daten      
-        sh "start http://#{Drumherum.github_username}.github.com/#{Drumherum.project_name} "
+        sh "start #{Drumherum.url_docs} "
         sh 'chcp 65001 > NUL '        
       else
         sh 'sudo git add -A '    
         sh 'sudo git commit -m "---" --allow-empty'
         sh 'sudo git push origin +gh-pages '  # .netrc enthält die Login-Daten           
-        puts "done. Visit http://#{Drumherum.github_username}.github.com/#{Drumherum.project_name} "
+        puts "done. Visit #{Drumherum.url_docs} "
       end # if   
     
     end # do chdir   
