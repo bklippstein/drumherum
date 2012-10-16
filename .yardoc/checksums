@@ -1,6 +1,6 @@
 lib/drumherum.rb 7125d5b5479216020d9788ba75142785d5e8ef1c
-lib/drumherum/rake.rb 77f971d323872dacd05ee8837383d8700cd97980
-lib/drumherum/regexp.rb 68ff449b1848267e7fb08e46358ad4dc5f3f9262
-lib/drumherum/unit_test.rb 2c34a0261d11f6f7a230539aa4384ab644585c0a
-lib/drumherum/smart_init.rb 280b9fa0d64e916efc7debd632eb75d410243f01
+lib/drumherum/rake.rb c581271c290eec1b0b64b0216c3f170ddabea26e
+lib/drumherum/regexp.rb 4a65fccd0f279bd403dbf84a24c74af8b9037c1a
+lib/drumherum/unit_test.rb 48acf266c0126c0d326b5fe40c617d6ec4480dc9
+lib/drumherum/smart_init.rb 660c1c7fc8516d66450794502bf5e33edb4a4aa5
 lib/drumherum/call_tracker.rb 5be2818217a507f922f864350747ede0e58201c8

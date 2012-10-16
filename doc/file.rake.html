@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: rake
+  
+    &mdash; Documentation by YARD 0.8.2.1
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: rake</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><pre class="code ruby"><span class='comment'># ruby encoding: utf-8
+</span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>rake</span><span class='tstring_end'>'</span></span>
+
+
+<span class='comment'>#   ----------------------------------------------------------------------------------------------
+</span><span class='comment'>#   Ergänzung: Alte Tasks entfernen
+</span><span class='comment'>#   sonst kann man sie nämlich nicht überschreiben!
+</span><span class='comment'>#   Beispiel: remove_task 'test:plugins'     
+</span><span class='comment'>#   Quelle: http://matthewbass.com/2007/03/07/overriding-existing-rake-tasks/
+</span><span class='comment'>#   dies hier stimmt nicht: http://www.dcmanges.com/blog/modifying-rake-tasks
+</span>
+
+<span class='comment'># @private
+</span><span class='kw'>module</span> <span class='const'>Rake</span>
+  <span class='kw'>class</span> <span class='const'>Task</span> 
+    <span class='kw'>def</span> <span class='id identifier rubyid_hide!'>hide!</span>
+      <span class='ivar'>@comment</span> <span class='op'>=</span> <span class='kw'>nil</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>  
+   
+<span class='const'>Rake</span><span class='op'>::</span><span class='const'>TaskManager</span><span class='period'>.</span><span class='id identifier rubyid_class_eval'>class_eval</span> <span class='kw'>do</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_remove_task'>remove_task</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+    <span class='ivar'>@tasks</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+
+<span class='kw'>module</span> <span class='const'>RakeTaskCleanup</span>
+  
+  <span class='comment'># If you want to override a task, you first have to delete it. Usage:
+</span>  <span class='comment'>#  remove_task 'test:plugins'  
+</span>  <span class='comment'>#
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_remove_task'>remove_task</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+    <span class='const'>Rake</span><span class='period'>.</span><span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_remove_task'>remove_task</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># You can just hide tasks by clearing their descriptions.
+</span>  <span class='comment'># After this they still exist, but they are not listed anymore.
+</span>  <span class='comment'># Usage: 
+</span>  <span class='comment'>#  hide_tasks [ :announce, :audit, :check_extra_deps, :clobber_docs, :clobber_package, :default ]
+</span>  <span class='comment'>#
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_hide_tasks'>hide_tasks</span><span class='lparen'>(</span><span class='id identifier rubyid_task_list'>task_list</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_task_list'>task_list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span> <span class='id identifier rubyid_task_name'>task_name</span> <span class='op'>|</span>
+      <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='const'>Rake</span><span class='period'>.</span><span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_lookup'>lookup</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_hide!'>hide!</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>Object</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>RakeTaskCleanup</span>
+<span class='kw'>end</span>
+
+
+
+
+
+
+
+
+
+
+
+
+<span class='comment'># -------------------------------------------------------------------------------------------------------
+</span><span class='comment'># publish
+</span><span class='comment'>#
+</span>
+  <span class='comment'># Task :publish
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>publish all on github and rubygems, reinstall gem</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:publish</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span> <span class='symbol'>:utf8</span><span class='comma'>,</span> <span class='symbol'>:doku</span><span class='comma'>,</span> <span class='symbol'>:rubygems_publish</span><span class='comma'>,</span> <span class='symbol'>:gem_uninstall</span><span class='comma'>,</span> <span class='symbol'>:git_publish</span><span class='comma'>,</span> <span class='symbol'>:git_publish_docs</span><span class='comma'>,</span> <span class='symbol'>:sleep_15</span><span class='comma'>,</span> <span class='symbol'>:utf8</span><span class='comma'>,</span> <span class='symbol'>:gem_install</span><span class='rbracket'>]</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>done.</span><span class='tstring_end'>'</span></span>
+  <span class='kw'>end</span>  
+
+
+  
+<span class='comment'># -------------------------------------------------------------------------------------------------------
+</span><span class='comment'># docs
+</span><span class='comment'>#
+</span>
+  <span class='comment'># Task :docs
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>regenerate yard documentation</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:doku</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span> <span class='symbol'>:clobber_docs</span><span class='comma'>,</span> <span class='symbol'>:yard</span><span class='comma'>,</span> <span class='symbol'>:yard_post</span><span class='rbracket'>]</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>done.</span><span class='tstring_end'>'</span></span>
+  <span class='kw'>end</span>    
+  
+  
+  <span class='comment'># Task :yard_post
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>postprocessing for yard docs</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:yard_post</span> <span class='kw'>do</span>
+    <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./doc</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span> 
+      <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>copy frames.html index.htm</span><span class='tstring_end'>'</span></span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo cp frames.html index.htm</span><span class='tstring_end'>'</span></span>
+      <span class='kw'>end</span>      
+    <span class='kw'>end</span> 
+  <span class='kw'>end</span>     
+  
+    
+  
+  
+
+<span class='comment'># -------------------------------------------------------------------------------------------------------
+</span><span class='comment'># git
+</span><span class='comment'>#
+</span>
+
+  <span class='comment'># git_publish
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>publish actual version to github</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:git_publish</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span> <span class='symbol'>:git_add</span><span class='comma'>,</span> <span class='symbol'>:git_commit</span><span class='comma'>,</span> <span class='symbol'>:git_push</span> <span class='rbracket'>]</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span>   
+    <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>start </span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_url_source'>url_source</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>done. Visit </span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_url_source'>url_source</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>  
+  
+  
+    
+  <span class='comment'># git_status
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git status</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:git_status</span> <span class='kw'>do</span>
+    <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>git status </span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sudo git status </span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>  
+  <span class='kw'>end</span>        
+    
+  
+  
+  <span class='comment'># git_add
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git_add -A</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:git_add</span> <span class='kw'>do</span>
+    <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>git add -A </span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sudo git add -A </span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>    
+  <span class='kw'>end</span>    
+    
+  
+  
+  <span class='comment'># git_commit
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git commit -m</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:git_commit</span> <span class='kw'>do</span>
+    <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git commit -m &quot;---&quot; </span><span class='tstring_end'>'</span></span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo git commit -m &quot;---&quot; </span><span class='tstring_end'>'</span></span>
+    <span class='kw'>end</span>     
+  <span class='kw'>end</span>  
+
+
+  <span class='comment'># git push origin master
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git_push</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:git_push</span> <span class='kw'>do</span>
+    <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git push origin master </span><span class='tstring_end'>'</span></span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo git push origin master </span><span class='tstring_end'>'</span></span>
+    <span class='kw'>end</span>     
+  <span class='kw'>end</span>  
+
+
+  
+  <span class='comment'># git_publish_docs
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>publish docs to github</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:git_publish_docs</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span>     
+  
+    <span class='comment'># Repository erstellen, wenn nötig
+</span>    <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/tmp</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo </span><span class='tstring_end'>'</span></span> <span class='kw'>unless</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span> <span class='rbrace'>}</span><span class='tstring_content'>git clone </span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_url_source'>url_source</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ok'>ok</span><span class='comma'>,</span><span class='id identifier rubyid_res'>res</span><span class='op'>|</span>
+        <span class='kw'>if</span> <span class='id identifier rubyid_ok'>ok</span>
+          <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tmp/</span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+            <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+              <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git checkout --orphan gh-pages </span><span class='tstring_end'>'</span></span>
+              <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>
+            <span class='kw'>else</span>
+              <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo git checkout --orphan gh-pages </span><span class='tstring_end'>'</span></span>
+            <span class='kw'>end</span>            
+          <span class='kw'>end</span> <span class='comment'># do chdir      
+</span>        <span class='kw'>else</span> <span class='comment'># not ok      
+</span>          <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>   <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span> <span class='comment'># do sh
+</span>    <span class='kw'>end</span> <span class='comment'># do chdir
+</span>    
+    <span class='comment'># alles löschen
+</span>    <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tmp/</span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span> 
+      <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git rm -rf --ignore-unmatch . </span><span class='tstring_end'>'</span></span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo git rm -rf --ignore-unmatch . </span><span class='tstring_end'>'</span></span>
+      <span class='kw'>end</span>      
+    <span class='kw'>end</span>    
+    
+    <span class='comment'># doc rüberkopieren 
+</span>    <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>doc</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span>
+      <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>xcopy /E *.* \\tmp\\</span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sudo cp . /tmp/</span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span>      
+    <span class='kw'>end</span>      
+    
+    <span class='comment'># publish   
+</span>    <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tmp/</span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+      <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git add -A </span><span class='tstring_end'>'</span></span>    
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git commit -m &quot;---&quot; --allow-empty</span><span class='tstring_end'>'</span></span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git push origin +gh-pages </span><span class='tstring_end'>'</span></span>  <span class='comment'># C:\Users\Klippstein\_netrc enthält die Login-Daten      
+</span>        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>start </span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_url_docs'>url_docs</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>        
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo git add -A </span><span class='tstring_end'>'</span></span>    
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo git commit -m &quot;---&quot; --allow-empty</span><span class='tstring_end'>'</span></span>
+        <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo git push origin +gh-pages </span><span class='tstring_end'>'</span></span>  <span class='comment'># .netrc enthält die Login-Daten           
+</span>        <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>done. Visit </span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_url_docs'>url_docs</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span> <span class='comment'># if   
+</span>    
+    <span class='kw'>end</span> <span class='comment'># do chdir   
+</span>    
+        
+  <span class='kw'>end</span> <span class='comment'># do task
+</span>    
+    
+
+  
+<span class='comment'># -------------------------------------------------------------------------------------------------------
+</span><span class='comment'># rubygems
+</span><span class='comment'>#  
+</span>
+  
+  <span class='comment'># Task :rubygems_publish
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>release actual version to rubygems</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:rubygems_publish</span>  <span class='kw'>do</span>
+    <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span>  
+    <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>VERSION</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_version'>project_version</span>
+    <span class='const'>Rake</span><span class='op'>::</span><span class='const'>Task</span><span class='lbracket'>[</span><span class='symbol'>:release</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_invoke'>invoke</span>
+
+  <span class='kw'>end</span>  
+
+
+  
+  <span class='comment'># Task :gem_uninstall
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>uninstall old gem</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:gem_uninstall</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span>   
+    <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo </span><span class='tstring_end'>'</span></span> <span class='kw'>unless</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span> <span class='rbrace'>}</span><span class='tstring_content'>gem uninstall </span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_content'> --a --ignore-dependencies </span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>  
+  
+
+  
+  <span class='comment'># Task :gem_install
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>install gem from rubygems</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_task'>task</span> <span class='symbol'>:gem_install</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span><span class='semicolon'>;</span> <span class='id identifier rubyid_puts'>puts</span>        
+    <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sudo </span><span class='tstring_end'>'</span></span> <span class='kw'>unless</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span> <span class='rbrace'>}</span><span class='tstring_content'>gem install </span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>    
+  
+
+
+
+
+
+<span class='comment'># -------------------------------------------------------------------------------------------------------
+</span><span class='comment'># Div
+</span><span class='comment'>#
+</span>
+<span class='comment'># Task :utf8
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Set Codepage to 65001</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_task'>task</span> <span class='symbol'>:utf8</span> <span class='kw'>do</span>
+
+  <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>chcp 65001 &gt; NUL </span><span class='tstring_end'>'</span></span>  <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+
+<span class='kw'>end</span>
+
+
+<span class='comment'># Task :version
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>VERSION of the current project and the installed gem</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_task'>task</span> <span class='symbol'>:version</span> <span class='kw'>do</span>
+
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n*** THIS PROJECT ***\n</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_content'> (</span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_version'>project_version</span><span class='rbrace'>}</span><span class='tstring_content'>)\n</span><span class='tstring_end'>&quot;</span></span>  
+  <span class='id identifier rubyid_verbose'>verbose</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gem list </span><span class='embexpr_beg'>#{</span><span class='const'>Drumherum</span><span class='period'>.</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> 
+  <span class='kw'>end</span>  
+  <span class='id identifier rubyid_puts'>puts</span>
+  <span class='id identifier rubyid_puts'>puts</span>
+   
+<span class='kw'>end</span>
+
+
+<span class='comment'># Task :load_path
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>$LOAD_PATH</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_task'>task</span> <span class='symbol'>:load_path</span> <span class='kw'>do</span>
+    
+  <span class='gvar'>$LOAD_PATH</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_path'>path</span><span class='op'>|</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_path'>path</span>
+  <span class='kw'>end</span>       
+  
+<span class='kw'>end</span>
+
+
+
+<span class='comment'># Task :sleep_5
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Sleep 5 seconds</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_task'>task</span> <span class='symbol'>:sleep_5</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_puts'>puts</span> 
+  <span class='id identifier rubyid_puts'>puts</span> 
+  <span class='id identifier rubyid_puts'>puts</span> 
+  <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+    <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wait 5</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sleep 5</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+<span class='kw'>end</span>
+
+
+<span class='comment'># Task :sleep_15
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_desc'>desc</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Sleep 15 seconds</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_task'>task</span> <span class='symbol'>:sleep_15</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_puts'>puts</span> 
+  <span class='id identifier rubyid_puts'>puts</span> 
+  <span class='id identifier rubyid_puts'>puts</span> 
+  <span class='kw'>if</span> <span class='const'>Hoe</span><span class='op'>::</span><span class='const'>WINDOZE</span>
+    <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wait 15</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_sh'>sh</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sleep 15</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+<span class='kw'>end</span>
+
+
+ 
+  
+    <span class='comment'># namespace :manifest do
+</span>    <span class='comment'># desc 'Recreate Manifest.txt to include ALL files'
+</span>    <span class='comment'># task :refresh do
+</span>      <span class='comment'># `rake check_manifest | patch -p0 &gt; Manifest.txt`
+</span>    <span class='comment'># end
+</span>  <span class='comment'># end
+</span>  </pre></div></div>
+
+    <div id="footer">
+  Generated on Wed Oct 17 01:53:26 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.2.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

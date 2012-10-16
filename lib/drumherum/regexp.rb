@@ -3,11 +3,12 @@
 
 class String
 
-
-  # Zeigt das Ergebnis eines Matches mit einer Regular Expression. Erleichtert das Entwickeln regulärer Ausdrücke.
+  # Easy development of regular expressions.
+  # @return [String] result of the match  
+  # @param [Regexp] regular_expression to match with +self+
   # 
-  def show_regexp(re)
-      if self =~ re
+  def show_regexp(regular_expression)
+      if self =~ regular_expression
           "#{$`}<<#{$&}>>#{$'}"
       else
           "no match"
@@ -17,6 +18,7 @@ class String
 end
 
 if defined? TransparentNil
+  # @private
   class NilClass
     def show_regexp(*a);                          nil;            end 
   end

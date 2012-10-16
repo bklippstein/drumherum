@@ -2,27 +2,28 @@
 = Drumherum
 http://bklippstein.github.com/drumherum/frames.html
 
+"Drumherum" is a german word for "the stuff around it".
+
 == $LOAD_PATH management
-+smart_init+ finds the directory named 'lib' in your project and adds
-* the (main) directory above
-* the lib-directory itself 
-to Rubys $LOAD_PATH. So your require statements load the actual version from your (local) project directory, not the (public) gem version.
+{include:SmartInit}
 
-Usage (wherever you are in the directory hierarchy of your project):
-  if $0 == __FILE__ 
-    require 'drumherum'
-    smart_init 
-  end
-  require 'my-gem-project'   # actual local version, not the gem version
-
-== Rake tasks for deployment
-  rake publish               # publish all on github and rubygems, reinstall gem
-  rake git_publish           # publish actual version to github  
+== Rake tasks for DRY release automation
+Usage: Instead of +require 'rake'+ use
+  require 'drumherum/rake'
+Tasks:
+  rake version               # VERSION of the current project and the installed gem
+  rake publish               # publish gem & docs on github and rubygems, reinstall gem
+  
+  rake git_publish           # publish current project to github  
   rake git_publish_docs      # publish docs to github
   rake rubygems_publish      # release actual version to rubygems
+See {file:lib/drumherum/rake.rb rake.rb}
 
 == Unit Tests
-You will see a status display for your tests if you use UnitTest instead of Test::Unit::TestCase: 
+{include:UnitTest}
+
+== Easy development of regular expressions
+See {String#show_regexp}
 
 
 

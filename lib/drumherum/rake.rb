@@ -1,14 +1,7 @@
 # ruby encoding: utf-8
 
-#== Rake
-
-#  ----------------------------------------------------------------------------------------------
-#  Rake initialisieren
-#  
-
 require 'rake'
 
-  
 
 #   ----------------------------------------------------------------------------------------------
 #   Ergänzung: Alte Tasks entfernen
@@ -16,6 +9,16 @@ require 'rake'
 #   Beispiel: remove_task 'test:plugins'     
 #   Quelle: http://matthewbass.com/2007/03/07/overriding-existing-rake-tasks/
 #   dies hier stimmt nicht: http://www.dcmanges.com/blog/modifying-rake-tasks
+
+
+# @private
+module Rake
+  class Task 
+    def hide!
+      @comment = nil
+    end
+  end
+end  
    
 Rake::TaskManager.class_eval do
   def remove_task(task_name)
@@ -23,9 +26,40 @@ Rake::TaskManager.class_eval do
   end
 end
 
-def remove_task(task_name)
-  Rake.application.remove_task(task_name)
+
+module RakeTaskCleanup
+  
+  # If you want to override a task, you first have to delete it. Usage:
+  #  remove_task 'test:plugins'  
+  #
+  def remove_task(task_name)
+    Rake.application.remove_task(task_name)
+  end
+
+  # You can just hide tasks by clearing their descriptions.
+  # After this they still exist, but they are not listed anymore.
+  # Usage: 
+  #  hide_tasks [ :announce, :audit, :check_extra_deps, :clobber_docs, :clobber_package, :default ]
+  #
+  def hide_tasks(task_list)
+    task_list.each do | task_name |
+      t = Rake.application.lookup(task_name)
+      t.hide!
+    end
+  end
 end
+
+class Object
+  include RakeTaskCleanup
+end
+
+
+
+
+
+
+
+
 
 
 
@@ -268,11 +302,17 @@ end
 
 # Task :version
 #
-desc 'VERSION of the current project'
+desc 'VERSION of the current project and the installed gem'
 task :version do
 
-  puts "\n#{Drumherum.project_name} (#{Drumherum.project_version})\n\n"
-          
+  puts "\n*** THIS PROJECT ***\n"
+  puts "\n#{Drumherum.project_name} (#{Drumherum.project_version})\n"  
+  verbose(false) do
+    sh "gem list #{Drumherum.project_name}" 
+  end  
+  puts
+  puts
+   
 end
 
 

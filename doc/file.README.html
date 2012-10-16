@@ -67,10 +67,13 @@
 <p><a
 href="http://bklippstein.github.com/drumherum/frames.html">bklippstein.github.com/drumherum/frames.html</a></p>
 
+<p>“Drumherum” is a german word for “the stuff around it”.</p>
+
 <h2>$LOAD_PATH management</h2>
 
-<p><tt>smart_init</tt> finds the directory named 'lib' in your project and
-adds</p>
+<p>
+<p><span class='object_link'><a href="SmartInit.html#smart_init-instance_method" title="SmartInit#smart_init (method)">smart_init</a></span> finds the directory named 'lib' in your
+project and adds</p>
 <ul><li>
 <p>the (main) directory above</p>
 </li><li>
@@ -80,6 +83,9 @@ adds</p>
 <p>to Rubys $LOAD_PATH. So your require statements load the actual version
 from your (local) project directory, not the (public) gem version.</p>
 
+<p>Also, <span class='object_link'><a href="SmartInit.html#smart_init-instance_method" title="SmartInit#smart_init (method)">smart_init</a></span> sets some <span class='object_link'><a href="Drumherum.html" title="Drumherum (module)">release infos</a></span>
+for Hoe.</p>
+
 <p>Usage (wherever you are in the directory hierarchy of your project):</p>
 
 <pre class="code ruby"><code><span class='kw'>if</span> <span class='gvar'>$0</span> <span class='op'>==</span> <span class='kw'>__FILE__</span> 
@@ -87,18 +93,35 @@ from your (local) project directory, not the (public) gem version.</p>
   <span class='id identifier rubyid_smart_init'>smart_init</span> 
 <span class='kw'>end</span>
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>my-gem-project</span><span class='tstring_end'>'</span></span>   <span class='comment'># actual local version, not the gem version</span></code></pre>
+</p>
 
-<h2>Rake tasks for deployment</h2>
+<h2>Rake tasks for DRY release automation</h2>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_publish'>publish</span>               <span class='comment'># publish all on github and rubygems, reinstall gem
-</span><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_git_publish'>git_publish</span>           <span class='comment'># publish actual version to github  
+<p>Usage: Instead of <tt>require ‘rake’</tt> use</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>drumherum/rake</span><span class='tstring_end'>'</span></span></code></pre>
+
+<p>Tasks:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_version'>version</span>               <span class='comment'># VERSION of the current project and the installed gem
+</span><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_publish'>publish</span>               <span class='comment'># publish gem &amp; docs on github and rubygems, reinstall gem
+</span>
+<span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_git_publish'>git_publish</span>           <span class='comment'># publish current project to github  
 </span><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_git_publish_docs'>git_publish_docs</span>      <span class='comment'># publish docs to github
 </span><span class='id identifier rubyid_rake'>rake</span> <span class='id identifier rubyid_rubygems_publish'>rubygems_publish</span>      <span class='comment'># release actual version to rubygems</span></code></pre>
 
+<p>See <a href="file.rake.html" title="rake.rb">rake.rb</a></p>
+
 <h2>Unit Tests</h2>
 
-<p>You will see a status display for your tests if you use UnitTest instead of
-Test::Unit::TestCase:</p>
+<p>
+<p>You will see a status display for your tests if you use <span class='object_link'><a href="UnitTest.html" title="UnitTest (class)">UnitTest</a></span> instead
+of Test::Unit::TestCase:</p>
+</p>
+
+<h2>Easy development of regular expressions</h2>
+
+<p>See <span class='object_link'><a href="String.html#show_regexp-instance_method" title="String#show_regexp (method)">String#show_regexp</a></span></p>
 
 <h2>More Info</h2>
 <ul><li>
@@ -123,7 +146,7 @@ DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Oct 16 16:33:42 2012 by
+  Generated on Wed Oct 17 01:53:26 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.3).
 </div>
