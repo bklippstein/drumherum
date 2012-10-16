@@ -57,7 +57,7 @@ end
   
   # Task :yard_post
   #
-  desc 'postprocessing fpr yard docs'
+  desc 'postprocessing for yard docs'
   task :yard_post do
     Dir.chdir "./doc" do 
       if Hoe::WINDOZE
