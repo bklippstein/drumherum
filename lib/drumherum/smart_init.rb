@@ -70,7 +70,7 @@ module Drumherum
     end   
 
     def url_docs
-      "http://#{Drumherum.github_username}.github.com/#{Drumherum.project_name}/frames.htm"
+      "http://#{Drumherum.github_username}.github.com/#{Drumherum.project_name}/frames.html"
     end     
         
   end # moduldefinitionen   

@@ -23,7 +23,7 @@ $hoe = Hoe.spec Drumherum.project_name do
   summary               = '$LOAD_PATH management, Rake tasks for deployment'  
 
   remote_rdoc_dir = '' # Release to root only one project  
-  urls                  = [["http://#{Drumherum.github_username}.github.com/#{Drumherum.project_name}/"]]
+  urls                  = [[Drumherum.url_docs], [Drumherum.url_source]]
 
                     
 end
