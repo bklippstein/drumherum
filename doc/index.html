@@ -112,6 +112,28 @@ for Hoe.</p>
 
 <p>See <a href="file.rake.html" title="rake.rb">rake.rb</a></p>
 
+<h2>Hiding and overwriting of rake tasks</h2>
+
+<p>
+<p>
+<p>Do you want to clean up the messy rake task list? Use
+<span class='object_link'><a href="RakeTaskCleanup.html#hide_tasks-instance_method" title="RakeTaskCleanup#hide_tasks (method)">hide_tasks</a></span> to hide unused rake tasks from
+<tt>rake -T</tt>.</p>
+
+<p>You hide tasks by clearing their descriptions. After this they still exist,
+but they are not listed anymore. Usage:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_hide_tasks'>hide_tasks</span> <span class='lbracket'>[</span> <span class='symbol'>:announce</span><span class='comma'>,</span> <span class='symbol'>:audit</span><span class='comma'>,</span> <span class='symbol'>:check_extra_deps</span><span class='comma'>,</span> <span class='symbol'>:clobber_docs</span><span class='comma'>,</span> <span class='symbol'>:clobber_package</span><span class='comma'>,</span> <span class='symbol'>:default</span> <span class='rbracket'>]</span></code></pre>
+</p>
+
+<p>
+<p>If you want to override a task, you first have to delete it. Use 
+<span class='object_link'><a href="RakeTaskCleanup.html#remove_task-instance_method" title="RakeTaskCleanup#remove_task (method)">remove_task</a></span> for it. Usage:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_remove_task'>remove_task</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>test:plugins</span><span class='tstring_end'>'</span></span></code></pre>
+</p>
+</p>
+
 <h2>Unit Tests</h2>
 
 <p>
@@ -146,7 +168,7 @@ DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Wed Oct 17 01:53:26 2012 by
+  Generated on Wed Oct 17 09:17:27 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.3).
 </div>

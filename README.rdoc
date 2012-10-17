@@ -19,6 +19,9 @@ Tasks:
   rake rubygems_publish      # release actual version to rubygems
 See {file:lib/drumherum/rake.rb rake.rb}
 
+== Hiding and overwriting of rake tasks
+{include:RakeTaskCleanup}
+
 == Unit Tests
 {include:UnitTest}
 

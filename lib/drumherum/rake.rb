@@ -27,16 +27,26 @@ Rake::TaskManager.class_eval do
 end
 
 
+
+# {include:RakeTaskCleanup#hide_tasks}
+#
+# {include:RakeTaskCleanup#remove_task}
+#
 module RakeTaskCleanup
   
-  # If you want to override a task, you first have to delete it. Usage:
+  # If you want to override a task, you first have to delete it. Use 
+  # {RakeTaskCleanup#remove_task remove_task} for it.
+  # Usage:
   #  remove_task 'test:plugins'  
   #
   def remove_task(task_name)
     Rake.application.remove_task(task_name)
   end
 
-  # You can just hide tasks by clearing their descriptions.
+  # Do you want to clean up the messy rake task list? Use
+  # {RakeTaskCleanup#hide_tasks hide_tasks} to hide unused rake tasks from +rake -T+.
+  #
+  # You hide tasks by clearing their descriptions.
   # After this they still exist, but they are not listed anymore.
   # Usage: 
   #  hide_tasks [ :announce, :audit, :check_extra_deps, :clobber_docs, :clobber_package, :default ]
@@ -71,7 +81,7 @@ end
   # Task :publish
   #
   desc 'publish all on github and rubygems, reinstall gem'
-  task :publish => [ :utf8, :doku, :rubygems_publish, :gem_uninstall, :git_publish, :git_publish_docs, :sleep_15, :utf8, :gem_install] do
+  task :publish => [ :utf8, :doku, :rubygems_publish, :gem_uninstall, :git_publish, :git_publish_docs, :sleep_15, :utf8, :gem_install, :version] do
     puts 'done.'
   end  
 
@@ -294,9 +304,9 @@ end
 #
 desc 'Set Codepage to 65001'
 task :utf8 do
-
-  sh 'chcp 65001 > NUL '  if Hoe::WINDOZE
-
+  verbose(false) do
+    sh 'chcp 65001 > NUL '  if Hoe::WINDOZE
+  end
 end
 
 

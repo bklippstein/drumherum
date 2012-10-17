@@ -1,3 +1,6 @@
+== 0.1.19 2012-10-17
+* hide_tasks
+
 == 0.1.8 2012-10-16
 * yard documentation
 
