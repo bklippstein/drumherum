@@ -102,7 +102,7 @@ end
   
   # yard
   #
-  remove_task ':yard'  
+  remove_task 'yard'  
   
   desc 'yard doc'
   task :yard do
