@@ -6,13 +6,15 @@
 <title>
   Module: RakeTaskCleanup
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.8.3
   
 </title>
 
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
 
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/klippstein.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -24,6 +26,8 @@
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/klippstein.js"></script>
 
 
   </head>
@@ -231,7 +235,7 @@ but they are not listed anymore. Usage:</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_hide_tasks'>hide_tasks</span><span class='lparen'>(</span><span class='id identifier rubyid_task_list'>task_list</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_task_list'>task_list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span> <span class='id identifier rubyid_task_name'>task_name</span> <span class='op'>|</span>
     <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='const'>Rake</span><span class='period'>.</span><span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_lookup'>lookup</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_hide!'>hide!</span>
+    <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_hide!'>hide!</span> <span class='kw'>unless</span> <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -288,9 +292,9 @@ but they are not listed anymore. Usage:</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Oct 17 09:17:27 2012 by
+  Generated on Thu Oct 18 10:32:01 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.2.1 (ruby-1.9.3).
+  0.8.3 (ruby-1.9.3).
 </div>
 
   </body>

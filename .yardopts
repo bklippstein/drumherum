@@ -3,6 +3,7 @@
 --embed-mixins
 --no-private
 --hide-void-return
+--template-path yard-template
 -
 README.rdoc
 History.rdoc

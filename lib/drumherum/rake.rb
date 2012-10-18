@@ -54,7 +54,7 @@ module RakeTaskCleanup
   def hide_tasks(task_list)
     task_list.each do | task_name |
       t = Rake.application.lookup(task_name)
-      t.hide!
+      t.hide! unless t.nil?
     end
   end
 end
@@ -99,6 +99,21 @@ end
   end    
   
   
+  
+  # yard
+  #
+  remove_task ':yard'  
+  
+  desc 'yard doc'
+  task :yard do
+    if Hoe::WINDOZE
+      sh "yard doc "
+    else
+      sh "sudo yard doc "
+    end  
+  end      
+  
+  
   # Task :yard_post
   #
   desc 'postprocessing for yard docs'
@@ -112,7 +127,8 @@ end
     end 
   end     
   
-    
+  
+   
   
   
 
