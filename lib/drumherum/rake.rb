@@ -91,21 +91,18 @@ end
 # docs
 #
 
-  # Task :docs
+  # Task :doku
   #
   desc 'regenerate yard documentation'
-  task :doku => [ :clobber_docs, :yard, :yard_post] do
+  task :doku => [ :clobber_docs, :yard_doc, :yard_post] do
     puts 'done.'
   end    
   
   
   
-  # yard
+  # yard_doc
   #
-  remove_task 'yard'  
-  
-  desc 'yard doc'
-  task :yard do
+  task :yard_doc do
     if Hoe::WINDOZE
       sh "yard doc "
     else
@@ -116,7 +113,6 @@ end
   
   # Task :yard_post
   #
-  desc 'postprocessing for yard docs'
   task :yard_post do
     Dir.chdir "./doc" do 
       if Hoe::WINDOZE
