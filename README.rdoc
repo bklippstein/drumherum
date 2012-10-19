@@ -6,6 +6,8 @@ http://bklippstein.github.com/drumherum/frames.html
 
 == $LOAD_PATH management
 {include:SmartInit}
+More:{SmartInit#smart_init smart_init}
+
 
 == Rake tasks for DRY release automation
 Usage: Instead of +require 'rake'+ use
@@ -17,16 +19,19 @@ Tasks:
   rake git_publish           # publish current project to github  
   rake git_publish_docs      # publish docs to github
   rake rubygems_publish      # release actual version to rubygems
-See {file:lib/drumherum/rake.rb rake.rb}
+More: {file:lib/drumherum/rake.rb rake.rb}
 
 == Hiding and overwriting of rake tasks
 {include:RakeTaskCleanup}
+More:{RakeTaskCleanup}
+
 
 == Unit Tests
 {include:UnitTest}
+More:{UnitTest}
 
 == Easy development of regular expressions
-See {String#show_regexp}
+More: {String#show_regexp show_regexp}
 
 
 
