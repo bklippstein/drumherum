@@ -106,7 +106,7 @@ end
     if Hoe::WINDOZE
       sh "yard doc "
     else
-      sh "sudo yard doc "
+      sh "yard doc "
     end  
   end      
   
