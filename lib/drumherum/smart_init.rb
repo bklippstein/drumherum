@@ -76,7 +76,11 @@ module Drumherum
     # @return [Array]
     #
     def directory_main
-      @directory_main || []
+      if defined? @directory_main
+        @directory_main
+      else
+        []
+      end
     end      
     
     
