@@ -94,7 +94,7 @@ end
   # Task :doku
   #
   desc 'regenerate yard documentation'
-  task :doku => [ :clobber_docs, :yard_doc, :yard_post] do
+  task :doku => [ :clobber_docs, :sleep_2, :yard_doc, :yard_post] do
     puts 'done.'
   end    
   
@@ -351,17 +351,17 @@ end
 
 
 
-# Task :sleep_5
+# Task :sleep_2
 #
-desc 'Sleep 5 seconds'
-task :sleep_5 do
+desc 'Sleep 2 seconds'
+task :sleep_2 do
   puts 
   puts 
   puts 
   if Hoe::WINDOZE
-    sh "wait 5"
+    sh "wait 2"
   else
-    sh "sleep 5"
+    sh "sleep 2"
   end
 
 end

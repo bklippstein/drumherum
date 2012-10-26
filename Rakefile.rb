@@ -14,15 +14,15 @@ Drumherum.github_username = 'bklippstein'
 #  
 # http://nubyonrails.com/articles/tutorial-publishing-rubygems-with-hoe
 #
-$hoe = Hoe.spec Drumherum.project_name do 
+$hoe = Hoe.spec Drumherum.project_name do |p|
 
-  # self.rubyforge_name = 'yourgemx' # if different than 'yourgem'
-   
-  developer('Bjoern Klippstein', 'klippstein@klippstein.com')
-  summary               = '$LOAD_PATH management, Rake tasks for deployment'  
+  p.summary               = "'Drumherum' is a german word for 'the stuff around it' -- Tools for developing and deploying"
+  p.description           = '$LOAD_PATH management, Rake tasks for deployment, Hiding and overwriting of Rake tasks'  
+  p.extra_deps            << ['hoe',  '>= 3.1.0']  
 
-  remote_rdoc_dir = '' # Release to root only one project  
-  urls                  = [[Drumherum.url_docs], [Drumherum.url_source]]
+  p.developer('Bjoern Klippstein', 'klippstein@klippstein.com')  
+  p.remote_rdoc_dir = '' # Release to root only one project  
+  p.urls                  = [Drumherum.url_docs, Drumherum.url_source]
 
                     
 end
