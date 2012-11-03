@@ -103,7 +103,7 @@ end
   # yard_doc
   #
   task :yard_doc do
-    if Hoe::WINDOZE
+    if Drumherum.host_os == :windows
       sh "yard doc "
     else
       sh "yard doc "
@@ -115,7 +115,7 @@ end
   #
   task :yard_post do
     Dir.chdir "./doc" do 
-      if Hoe::WINDOZE
+      if Drumherum.host_os == :windows
         sh 'copy frames.html index.htm'
       else
         sh 'sudo cp frames.html index.htm'
@@ -138,7 +138,7 @@ end
   desc 'publish actual version to github'
   task :git_publish => [ :git_add, :git_commit, :git_push ] do
     puts; puts; puts; puts   
-    if Hoe::WINDOZE
+    if Drumherum.host_os == :windows
       sh "start #{Drumherum.url_source}"
     else
       puts "done. Visit #{Drumherum.url_source} "
@@ -151,7 +151,7 @@ end
   #
   desc 'git status'
   task :git_status do
-    if Hoe::WINDOZE
+    if Drumherum.host_os == :windows
       sh "git status "
       sh 'chcp 65001 > NUL '
     else
@@ -165,7 +165,7 @@ end
   #
   desc 'git_add -A'
   task :git_add do
-    if Hoe::WINDOZE
+    if Drumherum.host_os == :windows
       sh "git add -A "
       sh 'chcp 65001 > NUL '
     else
@@ -179,7 +179,7 @@ end
   #
   desc 'git commit -m'
   task :git_commit do
-    if Hoe::WINDOZE
+    if Drumherum.host_os == :windows
       sh 'git commit -m "---" '
       sh 'chcp 65001 > NUL '
     else
@@ -192,7 +192,7 @@ end
   #
   desc 'git_push'
   task :git_push do
-    if Hoe::WINDOZE
+    if Drumherum.host_os == :windows
       sh 'git push origin master '
       sh 'chcp 65001 > NUL '
     else
@@ -210,10 +210,10 @@ end
   
     # Repository erstellen, wenn nötig
     Dir.chdir '/tmp' do
-      sh "#{'sudo ' unless Hoe::WINDOZE }git clone #{Drumherum.url_source} " do |ok,res|
+      sh "#{'sudo ' unless Drumherum.host_os == :windows }git clone #{Drumherum.url_source} " do |ok,res|
         if ok
           Dir.chdir "/tmp/#{Drumherum.project_name}" do
-            if Hoe::WINDOZE
+            if Drumherum.host_os == :windows
               sh 'git checkout --orphan gh-pages '
               sh 'chcp 65001 > NUL '
             else
@@ -221,14 +221,14 @@ end
             end            
           end # do chdir      
         else # not ok      
-          sh 'chcp 65001 > NUL '   if Hoe::WINDOZE
+          sh 'chcp 65001 > NUL '   if Drumherum.host_os == :windows
         end
       end # do sh
     end # do chdir
     
     # alles löschen
     Dir.chdir "/tmp/#{Drumherum.project_name}" do 
-      if Hoe::WINDOZE
+      if Drumherum.host_os == :windows
         sh 'git rm -rf --ignore-unmatch . '
         sh 'chcp 65001 > NUL '
       else
@@ -238,7 +238,7 @@ end
     
     # doc rüberkopieren 
     Dir.chdir 'doc' do
-      if Hoe::WINDOZE
+      if Drumherum.host_os == :windows
         sh "xcopy /E *.* \\tmp\\#{Drumherum.project_name} "
       else
         sh "sudo cp . /tmp/#{Drumherum.project_name} "
@@ -247,7 +247,7 @@ end
     
     # publish   
     Dir.chdir "/tmp/#{Drumherum.project_name}" do
-      if Hoe::WINDOZE
+      if Drumherum.host_os == :windows
         sh 'git add -A '    
         sh 'git commit -m "---" --allow-empty'
         sh 'git push origin +gh-pages '  # C:\Users\Klippstein\_netrc enthält die Login-Daten      
@@ -290,7 +290,7 @@ end
   desc 'uninstall old gem'
   task :gem_uninstall do
     puts; puts; puts; puts   
-    sh "#{'sudo ' unless Hoe::WINDOZE }gem uninstall #{Drumherum.project_name} --a --ignore-dependencies "
+    sh "#{'sudo ' unless Drumherum.host_os == :windows }gem uninstall #{Drumherum.project_name} --a --ignore-dependencies "
   end  
   
 
@@ -300,7 +300,7 @@ end
   desc 'install gem from rubygems'
   task :gem_install do
     puts; puts; puts; puts        
-    sh "#{'sudo ' unless Hoe::WINDOZE }gem install #{Drumherum.project_name} "
+    sh "#{'sudo ' unless Drumherum.host_os == :windows }gem install #{Drumherum.project_name} "
   end    
   
 
@@ -317,7 +317,7 @@ end
 desc 'Set Codepage to 65001'
 task :utf8 do
   verbose(false) do
-    sh 'chcp 65001 > NUL '  if Hoe::WINDOZE
+    sh 'chcp 65001 > NUL '  if Drumherum.host_os == :windows
   end
 end
 
@@ -358,7 +358,7 @@ task :sleep_2 do
   puts 
   puts 
   puts 
-  if Hoe::WINDOZE
+  if Drumherum.host_os == :windows
     sh "wait 2"
   else
     sh "sleep 2"
@@ -374,7 +374,7 @@ task :sleep_15 do
   puts 
   puts 
   puts 
-  if Hoe::WINDOZE
+  if Drumherum.host_os == :windows
     sh "wait 15"
   else
     sh "sleep 15"
