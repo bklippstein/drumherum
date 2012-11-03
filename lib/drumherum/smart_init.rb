@@ -103,7 +103,30 @@ module Drumherum
     # @return [String] URI to github (documentation)       
     def url_docs
       "http://#{Drumherum.github_username}.github.com/#{Drumherum.project_name}/frames.html"
-    end     
+    end    
+
+    
+    # @return [String] path of Ruby installation      
+    def ruby_dir
+      RbConfig::CONFIG['prefix']
+    end
+    
+    
+    # @return [Symbol] Host OS: +:windows+, +:linux+ or +:other+.      
+    def host_os
+      return $host_os if defined? $host_os 
+      case RbConfig::CONFIG['host_os']
+         when /mswin|windows|mingw32|cygwin32/i
+            $host_os = :windows
+         when /linux/i
+            $host_os = :linux
+         else
+            $host_os = :other
+      end # case
+      #puts "RbConfig::CONFIG['host_os']=#{RbConfig::CONFIG['host_os']}"
+      #puts "$host_os=#{$host_os.inspect}"    
+    end # def     
+    
        
     
   end # moduldefinitionen   
@@ -177,10 +200,12 @@ if $0 == __FILE__
 
 # pp RUBYDIR
 
-smart_init
-$LOAD_PATH.each do |path|
-puts path
-end
+# smart_init
+# $LOAD_PATH.each do |path|
+# puts path
+# end
+
+puts Drumherum.host_os.inspect
 
 end
 
