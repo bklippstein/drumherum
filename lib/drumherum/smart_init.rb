@@ -150,6 +150,9 @@ end
 #
 module SmartInit 
 
+
+  # require 'perception'    
+    
   # @!group Included in Object
 
   def smart_init(__file__ = nil)
@@ -160,27 +163,53 @@ module SmartInit
     
     patharray = dir_caller.split('/')
     patharray = dir_caller.split("\\")       if patharray.size == 1  
-    # libpath = File.join(patharray)   
-    patharray.size.times do |i|
-      break   if File.directory?( File.join(patharray, 'lib') ) 
-      patharray << '..'
-    end
+    projectname = 'ERROR'
+
+    (patharray.size-2).times do |i|
     
+      # found name/lib/name?
+      if (patharray[-2] == 'lib'  &&  patharray[-1] == patharray[-3])
+        projectname = patharray[-1]
+        patharray.pop(2)
+        break
+        
+      # found lib one level down?
+      elsif File.directory?( File.join(patharray, 'lib') ) 
+        projectname = patharray[-1]
+        break
+        
+      else
+        patharray.pop
+        
+      end
+    
+    end # do
+    
+  
+    # see "projectname = #{projectname}"
+    # see patharray    
+    # see
     Drumherum::directory_main = patharray.dup
+    
+    # /projectname/lib/projectname     
+    newpath = File.join(patharray,'lib', projectname)  
+    unless $:.include?(newpath)
+      $:.unshift(newpath)  
+    end      
        
-    # Lib-Pfad anfügen       
+    # /projectname/lib 
     newpath = File.join(patharray,'lib')  
     unless $:.include?(newpath)
       $:.unshift(newpath)  
     end       
        
-    # Hauptpfad anfügen   
+    # /projectname
     newpath = File.join(patharray)  
     unless $:.include?(newpath)
       $:.unshift(newpath)  
     end    
     
-
+    # see $LOAD_PATH
     
   end  #def  
   

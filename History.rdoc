@@ -1,3 +1,6 @@
+== 0.1.31 2012-10-17
+* fixed bug in smart_init
+
 == 0.1.19 2012-10-17
 * hide_tasks
 
