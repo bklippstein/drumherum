@@ -191,11 +191,12 @@ module SmartInit
     # see
     Drumherum::directory_main = patharray.dup
     
-    # /projectname/lib/projectname     
-    newpath = File.join(patharray,'lib', projectname)  
-    unless $:.include?(newpath)
-      $:.unshift(newpath)  
-    end      
+    # /projectname/lib/projectname not included, because you won't be able to require 'set'
+    # anymore if you have a file with the same name in your lib
+    # newpath = File.join(patharray,'lib', projectname)  
+    # unless $:.include?(newpath)
+      # $:.unshift(newpath)  
+    # end      
        
     # /projectname/lib 
     newpath = File.join(patharray,'lib')  
