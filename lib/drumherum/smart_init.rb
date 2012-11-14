@@ -157,7 +157,7 @@ module SmartInit
 
   def smart_init(__file__ = nil)
     __file__ = caller[0] unless __file__
-    dir_caller =File.dirname(__file__)
+    dir_caller =File.expand_path(File.dirname(__file__))
     
     #puts "smart_init " + dir_caller    
     
@@ -199,13 +199,13 @@ module SmartInit
     # end      
        
     # /projectname/lib 
-    newpath = File.join(patharray,'lib')  
+    newpath = File.join(patharray,'lib')
     unless $:.include?(newpath)
       $:.unshift(newpath)  
     end       
        
     # /projectname
-    newpath = File.join(patharray)  
+    newpath = File.join(patharray)
     unless $:.include?(newpath)
       $:.unshift(newpath)  
     end    
