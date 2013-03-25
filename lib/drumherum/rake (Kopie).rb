@@ -152,7 +152,7 @@ end
       sh "git status "
       sh 'chcp 65001 > NUL '
     else
-      sh "git status "
+      sh "sudo git status "
     end  
   end        
     
@@ -166,7 +166,7 @@ end
       sh "git add -A "
       sh 'chcp 65001 > NUL '
     else
-      sh "git add -A "
+      sh "sudo git add -A "
     end    
   end    
     
@@ -180,7 +180,7 @@ end
       sh 'git commit -m "---" '
       sh 'chcp 65001 > NUL '
     else
-      sh 'git commit -m "---" '
+      sh 'sudo git commit -m "---" '
     end     
   end  
 
@@ -193,7 +193,7 @@ end
       sh 'git push origin master '
       sh 'chcp 65001 > NUL '
     else
-      sh 'git push origin master '
+      sh 'sudo git push origin master '
     end     
   end  
 
@@ -207,14 +207,14 @@ end
   
     # Repository erstellen, wenn nötig
     Dir.chdir '/tmp' do
-      sh "git clone #{Drumherum.url_source} " do |ok,res|
+      sh "#{'sudo ' unless Drumherum.host_os == :windows }git clone #{Drumherum.url_source} " do |ok,res|
         if ok
           Dir.chdir "/tmp/#{Drumherum.project_name}" do
             if Drumherum.host_os == :windows
               sh 'git checkout --orphan gh-pages '
               sh 'chcp 65001 > NUL '
             else
-              sh 'git checkout --orphan gh-pages '
+              sh 'sudo git checkout --orphan gh-pages '
             end            
           end # do chdir      
         else # not ok      
@@ -229,7 +229,7 @@ end
         sh 'git rm -rf --ignore-unmatch . '
         sh 'chcp 65001 > NUL '
       else
-        sh 'git rm -rf --ignore-unmatch . '
+        sh 'sudo git rm -rf --ignore-unmatch . '
       end      
     end    
     
@@ -238,7 +238,7 @@ end
       if Drumherum.host_os == :windows
         sh "xcopy /E *.* \\tmp\\#{Drumherum.project_name} "
       else
-        sh "cp . /tmp/#{Drumherum.project_name} "
+        sh "sudo cp . /tmp/#{Drumherum.project_name} "
       end      
     end      
     
@@ -251,9 +251,9 @@ end
         sh "start #{Drumherum.url_docs} "
         sh 'chcp 65001 > NUL '        
       else
-        sh 'git add -A '    
-        sh 'git commit -m "---" --allow-empty'
-        sh 'git push origin +gh-pages '  # .netrc enthält die Login-Daten           
+        sh 'sudo git add -A '    
+        sh 'sudo git commit -m "---" --allow-empty'
+        sh 'sudo git push origin +gh-pages '  # .netrc enthält die Login-Daten           
         puts "done. Visit #{Drumherum.url_docs} "
       end # if   
     

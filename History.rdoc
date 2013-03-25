@@ -1,3 +1,6 @@
+== 0.1.37 2013-03-25
+* better support for Linux
+
 == 0.1.31 2012-10-17
 * fixed bug in smart_init
 

@@ -1,6 +1,4 @@
-console.rb
 History.rdoc
-init.rb
 License.rdoc
 Manifest.txt
 Rakefile.rb
