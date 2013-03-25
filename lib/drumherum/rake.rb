@@ -130,7 +130,7 @@ end
 #
 
 
-  # git_publish
+  # git_publish  
   # 
   desc 'publish actual version to github'
   task :git_publish => [ :git_add, :git_commit, :git_push ] do
