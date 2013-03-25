@@ -234,11 +234,11 @@ end
     end    
     
     # doc rüberkopieren 
-    Dir.chdir 'doc' do
+    Dir.chdir "#{File.join(Drumherum.directory_main,'doc')}" do
       if Drumherum.host_os == :windows
         sh "xcopy /E *.* \\tmp\\#{Drumherum.project_name} "
       else
-        sh "cp . /tmp/#{Drumherum.project_name} "
+        sh "cp . -R /tmp/#{Drumherum.project_name} "
       end      
     end      
     
